@@ -43,7 +43,7 @@
         .高階牆 ul { font-size: 12px; color: #aaa; padding-left: 15px; line-height: 2.2; margin-top: 10px; }
         .底部按鈕 { text-decoration: none; text-align: center; padding: 16px; border: 1px solid var(--線條金); color: var(--雲漾金); font-size: 14px; display: block; margin-top: 15px; letter-spacing: 2px; }
         .強調 { background: var(--雲漾金); color: #2a2218; border: none; font-weight: bold; }
-        .折抵方案 { border: 1px solid var(--雲漾金); color: var(--雲漾金); padding: 10px; text-align: center; font-size: 13px; margin: 15px 0; font-weight: 700; background: rgba(212, 180, 131, 0.1); }
+        .折抵方案 { border: 1.5px solid var(--雲漾金); color: var(--雲漾金); padding: 15px; text-align: center; font-size: 13px; margin: 20px 0; font-weight: 700; background: rgba(212, 180, 131, 0.15); border-radius: 4px; line-height: 1.6; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -63,37 +63,66 @@
         </div>
         <div class="系統說明">
             <b>為什麼選擇雲漾？</b><br>
-            我們是市場首家完美融合<b>【西方靈數】</b>與東方數術之巔<b>【河圖洛書】</b>的能量診斷品牌。生命靈數定義行為性格，河圖揭示靈魂本源。透過雲漾獨家 <b>60-20-20 演算法</b>，我們深入探討先天本源與後天行為在 2026 丙午火年環境下的共振與摩擦。
+            我們是市場首家完美融合<b>【西方靈數】</b>與東方數術之巔<b>【河圖洛書】</b>的能量診斷品牌。生命靈數定義行為性格，河圖揭示靈魂本源。透過雲漾獨家 <b>60-20-20 演算法</b>，我們不僅看表層數據，更深入探討先天本源與後天行為在 2026 丙午火年環境下的共振與摩擦。
         </div>
     </div>
     <div id="報告區域"></div>
 </div>
 
 <script>
-    // --- 1. 自動讀取與儲存記憶功能 ---
+    // 自動記憶讀取
     window.onload = function() {
-        if(localStorage.getItem('yy_name')) document.getElementById('yy_name').value = localStorage.getItem('yy_name');
-        if(localStorage.getItem('yy_email')) document.getElementById('yy_email').value = localStorage.getItem('yy_email');
-        if(localStorage.getItem('yy_line')) document.getElementById('yy_line').value = localStorage.getItem('yy_line');
-        if(localStorage.getItem('yy_bday')) document.getElementById('yy_bday').value = localStorage.getItem('yy_bday');
+        ['yy_name', 'yy_email', 'yy_line', 'yy_bday'].forEach(id => {
+            if(localStorage.getItem(id)) document.getElementById(id).value = localStorage.getItem(id);
+        });
     };
 
-    // --- 2. 數據字典 (無省略) ---
+    // --- 完整數據字典 (不省略) ---
     const yyDict = {
-        soul: { 1: "【水之本源】沈穩包容，智慧如深水長流。", 2: "【火之靈性】敏銳溫暖，燭火般的感染力。", 3: "【木之生長】無限向上，生生不息的力量。", 4: "【金之收割】果斷聚焦，卓越的變現才華。", 5: "【土之承載】厚實大地，最可靠的後盾。", 6: "【水之智慧】靈活柔韌，優雅地化解阻礙。", 7: "【火之光芒】生命旺盛，天生的能量引導者。", 8: "【木之格局】深謀大器，具備領袖的擔當。", 9: "【金之圓滿】能量強大，顯化理想的頻率。" },
-        personalYear: { 1: "【開創啟動】行為頻率指向全新開始。適合獨立成長與播種。", 2: "【合作共振】趨於細膩平衡。適合在關係中尋求共識與獲取資源。", 3: "【表達擴張】靈感爆發之年。適合社交擴展與創意才華顯化。", 4: "【穩固建構】務實紮根。重點在於優化流程，為未來十年奠基。", 5: "【變革轉化】行為追求自由。適應力強，適合變動中尋求突圍。", 6: "【責任奉獻】關注和諧與信任。適合建立深層連結獲得成就。", 7: "【內省探索】轉向內在修復。適合學習復盤，從靜默中得洞見。", 8: "【權威顯化】動能最強之年。強大顯化力，是成果變現關鍵年。", 9: "【沈澱圓滿】進入結案週期。適合清理能量，沈澱底氣迎接新輪迴。" },
-        conflict: { 1: "行為標準與本源柔軟整合中。記得給予靈魂修復時間。", 2: "感知與直覺共舞。將敏感轉化為優雅創造力。", 3: "行動點燃格局。進入快速成長期，注意適度紮根。", 4: "願景尋求落實。火年賦予勇氣，幫助您聚焦核心目標。", 5: "內外皆土，性格極穩。保持流動開放，讓大地充满生機。", 6: "秩序與智慧融合。保持彈性能將機遇轉化為豐厚成果。", 7: "練習展現真實自我，為自己閃耀，全世界都會為您讓路。", 8: "強大顯化來自格局。維持穩健步調，防範能量過熱。", 9: "行為與本源已達圓滿。聚焦實質成就，化為靈魂資產。" },
+        soul: { 
+            1: "【水之本源】具備深沉修復力，沈穩且能包容萬物，擁有靜水深流的智慧。", 
+            2: "【火之靈性】直覺敏銳溫暖，具備燭火般的柔和感染力，能感應環境細微變化。", 
+            3: "【木之生長】格局宏大，擁有如翠竹般無限向上、突破重圍、生生不息的力量。", 
+            4: "【金之收割】果斷聚焦，天生擁有將願景實體化、變現才華，具備極強執行力。", 
+            5: "【土之承載】性格厚實如大地，能滋養萬物，是身邊人最可靠、最穩固的後盾。", 
+            6: "【水之智慧】靈活柔韌，如溪流般優雅化解阻礙、潤澤生命，展現高度溝通智慧。", 
+            7: "【火之光芒】生命力旺盛如烈陽，是天生的引導者與發光體，照亮他人路徑。", 
+            8: "【木之格局】深謀慮如古木，具備守護與承擔責任的領袖底氣，格局寬廣遼闊。", 
+            9: "【金之圓滿】能量純粹且強大，具備圓滿理想的顯化頻率，將靈魂願景化為現實。" 
+        },
+        personalYear: {
+            1: "【開創啟動】行為頻率指向全新開始。適合打破舊習，將能量聚焦於播種與獨立成長。", 
+            2: "【合作共振】行為頻率趨於細膩。適合在關係中尋求平衡，透過傾聽與對接獲取資源。", 
+            3: "【表達擴張】行為頻率活躍。靈感爆發，適合進行社交擴展與創意才華顯化。",
+            4: "【穩固建構】行為頻率務實。重點在於建立秩序、優化流程，為未來十年紮根奠基。", 
+            5: "【變革轉化】行為頻率追求自由。適應力強，適合在快速變動中尋找突圍成長機會。", 
+            6: "【責任奉獻】行為頻率關注和諧。適合建立信任感，透過人脈共鳴獲得顯著成就。",
+            7: "【內省探索】行為頻率轉向內在。適合學習復盤與修復，從靜默中獲得高維洞見。", 
+            8: "【權威顯化】行為頻率動能最強。具備強大支配力與顯化力，是成果變現的關鍵大年。", 
+            9: "【沈澱圓滿】行為頻率進入結案。適合清理不再適配的能量，沈澱底氣迎接新週期。"
+        },
+        conflict: {
+            1: "行為標準與本源柔軟整合中。火年幫助您去蕪存菁，記得給予靈魂修復時間。", 
+            2: "感知與直覺共舞。將敏感轉化為優雅創造力，在火年變動中保持優雅與靈動。", 
+            3: "行動點燃格局。進入快速成長期，注意適度地紮根與深呼吸，防範過度內耗。",
+            4: "願景尋求落實。火年賦予勇氣，幫助您在眾多選擇中聚焦核心目標，果斷前行。", 
+            5: "內外皆土，性格極穩。保持流動開放，讓大地在火年中依然充滿生機與活力。", 
+            6: "秩序與智慧融合。保持彈性能將機會轉化為豐厚成果，優雅地面對年度挑戰。",
+            7: "練習展現真實自我，為自己閃耀，全世界都會為您讓路，實現靈魂躍遷。", 
+            8: "強大顯化來自格局。維持穩健步調，守護根基位防範能量過熱，持續變現。", 
+            9: "行為與本源已達圓滿。聚焦實質成就，化為長遠穩定的靈魂資產，圓滿顯化。"
+        },
         dims: {
-            w: { h: "事業收割力強。2026 適合精準顯化。", l: "處於重整期。建議先穩固核心基底。" },
-            h: { h: "身心調節優異。即便在高壓仍能維持寧靜。", l: "能量正高度運轉。提醒您需增加深度修復。" },
-            e: { h: "社交磁場強大。讓和諧關係成為年度助力。", l: "情感磁場趨於內斂。適合從平靜中找回連結。" },
-            f: { h: "地基穩健具載物力。家庭是您的避風港。", l: "尋求穩定點。建議補強土元素提升安全感。" },
-            wi: { h: "認知格局展現智慧。建議將靈感落地，實現顯化。", l: "思維尋求突破。打破框架讓願景獲新動力。" }
+            w: { h: "事業收割力強。2026 適合精準顯化，將佈局轉為實體資產。", l: "目前處於重整期。建議優先穩固核心基底，避免在震盪中盲目擴張。" },
+            h: { h: "身心調節優異。即便在高壓流年仍能維持寧靜，守住內在清涼地。", l: "能量正高度運轉。燥熱流年提醒您需增加深度修復，防止能量乾燒。" },
+            e: { h: "社交磁場強大。透過柔化氣場，讓和諧關係成為年度最強助力。", l: "情感磁場趨於內斂。適合從平靜中找回真實連結，精簡社交圈。" },
+            f: { h: "地基穩健具載物力。家庭是您的避風港，強化地基自如應對動盪。", l: "目前尋求穩定點。建議補強土元素提升安全感，建立心理邊界。" },
+            wi: { h: "認知格局展現智慧。建議將靈感落地，實現靈魂世俗雙顯化。", l: "思維尋求突破。打破舊有框架，補強木能量讓願景獲得新動力。" }
         },
         crystals: {
             wood: { main: "綠幽靈千層山 / 景觀幽靈", intent: "【靈根座山】：層次山巒象徵「節節高升」與「貴人靠山」。", support: "搭配 綠幽靈 / 葡萄石", nums: [3, 8] },
-            fire: { main: "紅幽靈共生紅兔毛 / 晶中晶", intent: "【烈焰靈境】：共生紅兔毛象徵火年顯化速度與爆發力。", support: "搭配 紅超七 / 金草莓", nums: [2, 7] },
-            earth: { main: "黃幽靈聚寶盆 / 帶景金草莓", intent: "【大地厚德】：象徵「聚財入庫」，讓火年的熱能轉化為實體資產。", support: "搭配 鈦晶 / 黃虎眼", nums: [5] },
+            fire: { main: "紅幽靈共生紅兔毛 / 晶中晶", intent: "【烈焰靈境】：共生紅兔毛。象徵火年的顯化速度與爆發力。", support: "搭配 紅超七 / 金草莓", nums: [2, 7] },
+            earth: { main: "黃幽靈聚寶盆 / 帶景金草莓", intent: "【大地厚德】：象徵「聚財入庫」，讓火年的熱能轉化為資產。", support: "搭配 鈦晶 / 黃虎眼", nums: [5] },
             metal: { main: "鈦晶金字塔 / 鈦晶帶金山", intent: "【剛毅巔峰】：象徵權力之巔，在動盪中守住財富與秩序。", support: "搭配 金運石 / 黑銀鈦", nums: [4, 9] },
             water: { main: "水膽水晶 / 晶中晶 (水景)", intent: "【智泉靈動】：活水象徵靈魂清明與流動智慧，在燥熱中守住清明。", support: "搭配 海紋石 / 馬島月光", nums: [1, 6] }
         }
@@ -108,21 +137,19 @@
     }
 
     function startCalc() {
-        const nVal = document.getElementById('yy_name').value;
-        const eVal = document.getElementById('yy_email').value;
-        const lVal = document.getElementById('yy_line').value;
+        const nV = document.getElementById('yy_name').value;
+        const eV = document.getElementById('yy_email').value;
+        const lV = document.getElementById('yy_line').value;
         const bday = document.getElementById('yy_bday').value;
         const btn = document.getElementById('calcBtn');
 
-        if(!nVal || !eVal || !lVal || bday.length !== 8) { alert("請完整填寫資訊。"); return; }
+        if(!nV || !eV || !lV || bday.length !== 8) { alert("雲漾提醒：請完整填寫姓名、信箱、LINE 與生日。"); return; }
+        
+        // 執行記憶
+        localStorage.setItem('yy_name', nV); localStorage.setItem('yy_email', eV);
+        localStorage.setItem('yy_line', lV); localStorage.setItem('yy_bday', bday);
 
-        // --- 儲存記憶 ---
-        localStorage.setItem('yy_name', nVal);
-        localStorage.setItem('yy_email', eVal);
-        localStorage.setItem('yy_line', lVal);
-        localStorage.setItem('yy_bday', bday);
-
-        btn.disabled = true; btn.innerText = "數據同步中...";
+        btn.disabled = true; btn.innerText = "靈魂數據同步中...";
 
         const b = bday.split('').map(Number);
         const d1 = yyAdd(b[6], b[7]); const d2 = yyAdd(b[4], b[5]); const d3 = yyAdd(b[0], b[1]); 
@@ -137,30 +164,23 @@
         }
         const sc = { w: gS([1,6,4,9]), h: gS([2,7,1,6]), e: gS([3,8,2,7]), f: gS([5,9]), wi: gS([4,9,3,8]) };
         let crs; for(let k in yyDict.crystals) { if(yyDict.crystals[k].nums.includes(peak)) crs = yyDict.crystals[k]; }
-        const report = yyDict.soul[peak] + " " + yyDict.conflict[peak];
+        const reportText = yyDict.soul[peak] + " " + yyDict.conflict[peak];
 
-        // --- 核心：與 Make 紫色變數完全對應的發送包 ---
+        // Make.com 串接 (對位紫色變數)
         fetch("https://hook.eu1.make.com/lmzegbvtpptn2sk7qzxj4i3ukuq1wkqs", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                name: nVal,
-                email: eVal,
-                birthday: bday,
-                lineId: lVal,
-                peakNum: peak,
-                yearNum: pYear,
-                element: yyDict.soul[peak].split('】')[0].replace('【', ''),
-                L3_0: m1, L3_1: m2, L2_0: d1, L2_1: d2, L2_2: d3, L2_3: d4,
-                report: report
+                name: nV, email: eV, birthday: bday, lineId: lV, status: "未付費",
+                peakNum: peak, yearNum: pYear, element: yyDict.soul[peak].split('】')[0].replace('【', ''),
+                L3_0: m1, L3_1: m2, L2_0: d1, L2_1: d2, L2_2: d3, L2_3: d4, report: reportText
             })
-        }).then(() => console.log("雲漾後台同步成功"));
+        });
 
-        // --- 渲染界面 ---
         let html = `
             <div class="章節卡片">
                 <div class="章節標題"><span>第一章：2026 年度能量全景</span><span>P01</span></div>
-                <div class="解析本文">2026 是全球流年<span class="重點">「1」號開創年</span>，環境是<span class="重點">「丙午火年」</span>。雲漾引導您在強火磁場中找到平衡點。</div>
+                <div class="解析本文">2026 是全球流年<span class="重點">「1」號開創年</span>，環境是明亮奔騰的<span class="重點">「丙午火年」</span>。雲漾引導您在強火磁場中找到平衡點。</div>
             </div>
             <div class="章節卡片">
                 <div class="章節標題"><span>第二章：個人流年頻率對位</span><span>P02</span></div>
@@ -173,7 +193,6 @@
                 <div class="塔層"><div class="塔點 核心點">${peak}</div></div>
                 <div class="塔層"><div class="塔點">${m1}</div><div class="塔點">${m2}</div></div>
                 <div class="塔層" style="opacity:0.4"><div class="塔點">${d1}</div><div class="塔點">${d2}</div><div class="塔點">${d3}</div><div class="塔點">${d4}</div></div>
-                <div class="解析本文" style="text-align:center; color:var(--雲漾金); font-weight:bold; margin-top:20px;">【 靈魂本源精算 】</div>
                 <div class="解析本文"><span class="重點">本源特性：</span>${yyDict.soul[peak]}</div>
                 <div class="解析本文"><span class="重點">整合契機：</span>${yyDict.conflict[peak]}</div>
             </div>
@@ -187,30 +206,35 @@
             </div>
             <div class="章節卡片">
                 <div class="章節標題"><span>第五章：雲漾「山水入命」特殊礦定制</span><span>P05</span></div>
-                <div class="解析本文">特殊礦之所以昂貴，是因為它們內含億萬年形成的「意境」。雲漾獨創<b>「一主（特殊意境礦）+ 多輔（高端能量石）」</b>定制邏輯。</div>
+                <div class="解析本文">雲漾獨創<b>「一主（意境礦）+ 多輔（高端能量石）」</b>客製邏輯。我們把特殊礦內部的「景」視為靈魂的「座山」。</div>
                 <table class="水晶表格">
                     <tr><td class="表格標題">意境主石</td><td>${crs.main}</td></tr>
                     <tr><td class="表格標題">意境解釋</td><td>${crs.intent}</td></tr>
                     <tr><td class="表格標題">高端配石</td><td>${crs.support}</td></tr>
                 </table>
             </div>
+
             <div class="章節卡片">
                 <div class="章節標題"><span>年度終極戰略解碼</span><span>VIP</span></div>
                 <div class="高階牆">
-                    <div style="color:var(--雲漾金); font-weight:bold; margin-bottom:15px; font-size:16px; text-align:center;">✦ 2026 靈魂年度導航全書 ✦</div>
-                    <p style="font-size:13px; color:#eee;">解鎖 NT$ 600 高階版，獲得 30 頁深度對位報告：</p>
+                    <div style="color:var(--雲漾金); font-weight:bold; margin-bottom:15px; font-size:16px; text-align:center;">✦ 2026 靈魂年度戰略全書 ✦</div>
+                    <p style="font-size:13px; color:#eee; line-height:1.8;">解鎖 NT$ 600 高階版，獲得由雲漾專業團隊精算的 <b>12 頁深度對位戰略全書</b>：</p>
                     <ul style="font-size:12px; color:#aaa; padding-left:15px; margin-bottom:15px;">
-                        <li><b>全年度每月能量導航</b>：標註每月顯化高峰。</li>
-                        <li><b>河圖先天本源比例分析</b>：拆解能量油箱配比（60/20/20）。</li>
-                        <li><b>丙午火年危機應對指令</b>：如何在大火環境中守住底氣。</li>
+                        <li><b>全年度 12 個月能量導航</b>：標註每月顯化高峰與避震指引。</li>
+                        <li><b>靈魂能量油箱解析</b>：拆解水火木金土先天配比（60/20/20）。</li>
+                        <li><b>丙午火年專屬顯化指令</b>：針對您的本源提供年度避震操作。</li>
+                        <li><b>山水入命水晶補強配方</b>：針對五行缺口開立專屬配藥單。</li>
                     </ul>
-                    <div class="折抵方案">✦ 雲漾主理人限時承諾 ✦<br>解鎖本報告之費用可於後續預約線下諮詢<br>或定制高端水晶時【全額折抵】。</div>
-                    <a href="https://p.ecpay.com.tw/28F4276" target="_blank" class="底部按鈕 強調">立即解鎖完整年度戰略解析</a>
+                    
+                    <div class="折抵方案">✦ 雲漾主理人限時承諾 ✦<br>解鎖本戰略全書之費用 NT$ 600 元<br>可於預約線下諮詢或定制水晶時【全額折抵】。</div>
+                    
+                    <a href="https://p.ecpay.com.tw/28F4276" target="_blank" class="底部按鈕 強調">立即解鎖 12 頁年度戰略全書</a>
                 </div>
             </div>
+
             <div style="margin-top:20px; display:grid; gap:12px;">
                 <button onclick="location.reload()" class="底部按鈕">✦ 重新解碼新數據</button>
-                <a href="https://lin.ee/Nsksu05" target="_blank" class="底部按鈕 強調">💬 聯繫雲漾諮詢 / 預約定制對接</a>
+                <a href="https://lin.ee/Nsksu05" target="_blank" class="底部按鈕 強調">💬 聯繫雲漾諮詢 / 預約客製對接</a>
             </div>
         `;
         document.getElementById('報告區域').innerHTML = html;
